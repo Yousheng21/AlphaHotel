@@ -1,0 +1,179 @@
+body{
+    /*background: linear-gradient(90deg, rgba(90,90,96,1) 0%, rgba(210,222,224,1) 92%);*/
+    background-color: rgba(120,120,120,1);
+}
+
+.logo{
+    float: left;
+    width: 15%;
+    margin-left: 5%;
+}
+
+ul li{
+    padding: 2% 0;
+    font-size: 24px;
+}
+.room-features .room-info {
+    float: left;
+    text-align: center;
+    margin-right: 50px;
+}
+
+.room-features .room-info img {
+    color: #ae9548;
+    margin-bottom: -4px;
+}
+.room-features .room-info span {
+    display: block;
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    color: #2d220f;
+}
+
+.room-features {
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.room-features .room-info.last {
+    margin-right: 0;
+}
+
+
+footer{
+    display: flex;
+    flex-direction: column;
+    background-color: #546e7a;
+}
+.foot{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 25vh;
+
+}
+footer .first{
+    display: flex;
+    flex-direction: column;
+    margin: 2%;
+    margin-bottom: 0;
+    font-size: 25px;
+
+}
+footer .second{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+    font-size: 18px;
+}
+.second a{
+    padding: 1% 0;
+}
+.second h3{
+    font-size: 24px;
+}
+.link{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-right: 5%;
+}
+.link .img{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.link a{
+    align-self: center;
+    font-size: 24px;
+}
+.link h2{
+    align-self: flex-end;
+}
+footer div a:link{
+    color: white;
+}
+.foot1 h2{
+    display: inline-block;
+    margin-left: 10%;
+}
+.foot1 a{
+    margin-left: 3%;
+}
+footer div a:visited{
+    color: white;
+}
+a.fb,a.insta{
+    background-repeat: no-repeat;
+    padding-right: 15px;
+}
+a.fb {
+    background-image: url(../img/fb.png);
+    width: 64px;
+    height: 64px;
+}
+a.insta {
+    background-image: url(../img/insta.png);
+    width: 64px;
+    height: 64px;
+}
+a.youtube {
+    background-image: url(../img/youtube.png);
+    width: 64px;
+    height: 64px;
+}
+footer div a:link{
+    text-decoration: none;
+}
+footer div a:hover{
+    text-decoration: underline;
+}
+.foot1 h2{
+    margin-left: 30%;
+}
+
+@media only screen  and (min-device-width: 1224px)  {
+    h1{
+        font-size: 36px;
+    }
+    p{
+        font-size: 24px;
+    }
+    a.fb {
+        background-image: url(../img/fb_gray.png);
+        width: 64px;
+        height: 64px;
+    }
+    a.fb:hover {
+        background-image: url(../img/fb.png);
+    }
+    a.insta {
+        background-image: url(../img/insta_gray.png);
+        width: 64px;
+        height: 64px;
+    }
+    a.insta:hover {
+        background-image: url(../img/insta.png);
+    }
+    a.youtube {
+        background-image: url(../img/youtube_gray.png);
+        width: 64px;
+        height: 64px;
+    }
+    a.youtube:hover {
+        background-image: url(../img/youtube.png);
+    }
+    footer div a:link{
+        text-decoration: none;
+    }
+    footer div a:hover{
+        text-decoration: underline;
+    }
+    .foot1 h2{
+        margin-left: 30%;
+    }
+}
