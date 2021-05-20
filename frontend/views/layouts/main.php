@@ -16,6 +16,23 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ND5QGEK7R7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-ND5QGEK7R7');
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-183878434-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-183878434-1');
+    </script>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,8 +84,8 @@ NavBar::begin([ // отрываем виджет
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right ','style'=>'color:black'], // стили ul
     'items' => [
-        ['label' => 'Главная', 'url' => ['/site/index']],
-        ['label' => 'Номера', 'url' => ['/rooms/index']],
+        ['label' => 'Главная', 'url' => ['/site']],
+        ['label' => 'Номера', 'url' => ['/rooms']],
         ['label' => 'Ресторан', 'url' => ['/site/restaurant']],
         Yii::$app->user->isGuest ? // Если пользователь гость, показыаем ссылку "Вход", если он авторизовался "Выход"
             ['label' => 'Вход', 'url' => ['/site/login']] :

@@ -18,7 +18,7 @@ class RoomsSearch extends Rooms
     {
         return [
             [['id', 'price'], 'integer'],
-            [['name', 'image', 'description'], 'safe'],
+            [['name', 'image', 'description','guests','features','feature','square','bed','long_description'], 'safe'],
         ];
     }
 
@@ -64,7 +64,13 @@ class RoomsSearch extends Rooms
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'description', $this->description]);
+            ->andFilterWhere(['like', 'guests', $this->guests])
+            ->andFilterWhere(['like', 'features', $this->features])
+            ->andFilterWhere(['like', 'feature', $this->feature])
+            ->andFilterWhere(['like', 'square', $this->square])
+            ->andFilterWhere(['like', 'bed', $this->bed])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'long_description', $this->long_description]);
 
         return $dataProvider;
     }

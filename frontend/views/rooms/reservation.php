@@ -8,75 +8,104 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 $number = $_GET['name']??'';
 $flag = false;
+$in = $_COOKIE['in'];
+$out = $_COOKIE['out'];
+$guest = $_COOKIE['guests'];
+$days =  $days = date_diff(new DateTime($in),new DateTime($out))->d;
 
 ?>
 
 <h3 class="text-center" style="margin-bottom: 4%">Бронирование</h3>
 <?php
-if(Yii::$app->user->isGuest){
-    return Yii::$app->response->redirect(['site/signup']);
-}
 if ($number){
     foreach ($rooms as $room) {
         if($room['name']===$number) {
             $flag = true;
-           $price =  $room['price'];
+           $price =  $room['price']*$days;
         }
     }
-    if ($flag):
+    if ($flag):?>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <p>Дата заселения:  <?=$in?></p>
+            </div>
+            <div class="form-group col-md-4">
+                <p>Дата выезда:  <?=$out?></p>
+            </div>
+            <div class="form-group col-md-4">
+                <p>Номер:  <?=$number?></p>
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <p>Количество гостей:  <?=$guest?></p>
+            </div>
+            <div class="form-group col-md-4">
+                <p>Количество суток:  <?=$days?></p>
+            </div>
+            <div class="col-md-4 photoRoom">
+                <img src="/frontend/web/img/<?=$number?>.jpg" style="width: 100%" alt="">
+            </div>
+        </div>
+    <?php
         $form = ActiveForm::begin();?>
         <?php if (Yii::$app->user->isGuest){?>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4" style="margin-top: 2%">
                     <?= $form->field($model, 'username')->label('Имя пользователя') ?>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4" style="margin-top: 2%">
                     <?= $form->field($model, 'email')->label('Email') ?>
+                </div>
+                <div class="form-group col-md-4" style="margin-top: 2%">
+                    <?= $form->field($model, 'telephone')->label('Телефон')->textInput(['type'=>'tel']) ?>
                 </div>
             </div>
         <?php } else{?>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4" style="margin-top: 2%">
                     <?= $form->field($model, 'username')->label('Имя пользователя')->textInput(['value'=>Yii::$app->user->identity->username]) ?>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4" style="margin-top: 2%">
                     <?= $form->field($model, 'email')->label('Email')->textInput(['value'=>Yii::$app->user->identity->email]) ?>
+                </div>
+                <div class="form-group col-md-4" style="margin-top: 2%">
+                    <?= $form->field($model, 'telephone')->label('Телефон')->textInput(['type'=>'tel']) ?>
                 </div>
             </div>
         <?php }?>
+
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <?= $form->field($model, 'dateIn')->label('Дата въезда')->textInput(['type'=>'date']) ?>
-                </div>
-                <div class="form-group col-md-6">
-                    <?= $form->field($model, 'dateOut')->label('Email')->textInput(['type'=>'date']) ?>
+
+<!--                <div class="form-group col-md-4" style="margin-top: 1%; display: flex;flex-direction: column;">-->
+<!--                    <label style="align-self: start" for="inputState">Оплата</label>-->
+<!--                    <select  style="width: 70%" name="ReservationForm[payment]" id="pay">-->
+<!--                        <option selected disabled value="default">Выберите способ оплаты</option>-->
+<!--                        <option value="Онлайн">Онлайн</option>-->
+<!--                        <option value="В отеле">В отеле</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+                <div class=" form-group col-md-12">
+                    <h3>Сумма: <?=$price?>₽</h3>
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <?= $form->field($model, 'telephone')->label('Телефон')->textInput(['type'=>'tel']) ?>
-                </div>
-                <div class="form-group col-md-3">
-                    <?= $form->field($model, 'room')->label('Номер')->textInput(['value'=>$number,'READONLY'=>true]) ?>
-                </div>
-                <div class="form-group col-md-2" style="margin-top: 1%">
-                    <label for="inputState">Оплата</label>
-                    <select name="ReservationForm[payment]" id="pay">
-                        <option selected disabled value="default">Выберите способ оплаты</option>
-                        <option value="Онлайн">Онлайн</option>
-                        <option value="В отеле">В отеле</option>
-                    </select>
-                </div>
-                <div class=" form-group col-md-3" style="margin-top: 1%; display: flex;flex-direction: row;justify-content: center">
-                    <h3>Сумма: <?=$price?>$</h3>
+                <div class="form-group col-md-12 ">
+                    <h4>* Оплата осуществляется в отеле</h4>
                 </div>
             </div>
-            <div class="form-group col-md-6">
+
+
+            <div class="form-group col-md-12 ">
                 <?=$form->field($model,'checked')->checkbox(['label'=>'Я соглашаюсь с отправкой пользовательской информации']);?>
             </div>
             <div class="form-group col-md-4">
-            <?= Html::submitButton('Забронировать', ['class' => 'btn btn-primary', 'name' => 'reservation-button']) ?>
+                <?= Html::submitButton('Забронировать', ['class' => 'btn btn-primary', 'name' => 'reservation-button']) ?>
             </div>
+
+
+
 
     <?php
     ActiveForm::end();

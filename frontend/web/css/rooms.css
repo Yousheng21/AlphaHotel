@@ -1,6 +1,5 @@
-body{
-    /*background: linear-gradient(90deg, rgba(90,90,96,1) 0%, rgba(210,222,224,1) 92%);*/
-    background-color: rgba(120,120,120,1);
+html,body{
+    overflow-x:hidden;
 }
 
 .logo{
@@ -9,39 +8,136 @@ body{
     margin-left: 5%;
 }
 
-ul li{
-    padding: 2% 0;
+.burger-icon {
+    position: relative;
+    right: 1%;
+    cursor: pointer;
+    top: 3px;
+}
+
+.burger-nav {
+    display: block;
+    height: 40px;
+    width: 100%;
+    background-color: #cccccc;
+    background-color: lightgrey;
+    padding: 0;
+    margin: 0;
+
+}
+
+#mobile .wrapper3{
+    display: none;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+#mobile .wrapper3 .burger-nav{
+    background-color: red;
+}
+#nav {
+    overflow: hidden;
+    background: #505050;
+    height: 0;
+    max-height: 0px;
+    list-style-type: none;
+    padding-left: 0;
+    -webkit-transition: linear 1s;
+    transition: linear 1s;
+}
+
+#nav.open {
+    height: auto;
+    max-height: 500px;
+    -webkit-transition: linear 1s;
+    transition: linear 1s;
+
+}
+
+#nav li {
+    float: none;
+    text-align: left;
+    text-decoration: none;
+    width: 100%;
+    margin: 0;
+    -webkit-transition: linear 1s;
+    transition: linear 1s;
+}
+
+#nav li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    border-bottom: 1px solid white;
+    display: block;
+    margin: 0;
+    -webkit-transition: linear 1s;
+    transition: linear 1s;
+}
+
+#contain {
+    display: inline-block;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: 0.2s;
+}
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
+    transform: rotate(-45deg) translate(-9px, 6px) ;
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
+    transform: rotate(45deg) translate(-8px, -8px) ;
+}
+
+.hover .bar1 {
+    background-color: red;
+}
+
+.hover .bar2 {
+    background-color: red;
+}
+
+.hover .bar3 {
+    background-color: red;
+}
+
+.nav-link{
+    color: black !important;
     font-size: 24px;
 }
-.room-features .room-info {
-    float: left;
-    text-align: center;
-    margin-right: 50px;
+.nav li{
+    font-size: 24px;
+}
+.nav-link:first-letter{
+    color: red;
 }
 
-.room-features .room-info img {
-    color: #ae9548;
-    margin-bottom: -4px;
-}
-.room-features .room-info span {
-    display: block;
-    font-size: 14px;
-    font-family: "Open Sans", sans-serif;
-    font-weight: 400;
-    color: #2d220f;
+.nav-link:visited{
+    text-decoration: underline;
 }
 
-.room-features {
-    overflow: hidden;
-    display: flex;
-    flex-direction: row;
+.dropdown-toggle{
+    font-size: 24px;
 }
-
-
-.room-features .room-info.last {
-    margin-right: 0;
+.dropdown-menu li a{
+    font-size: 24px;
 }
-
 
 footer{
     display: flex;
@@ -132,9 +228,129 @@ footer div a:link{
 footer div a:hover{
     text-decoration: underline;
 }
-.foot1 h2{
-    margin-left: 30%;
+
+.footer div h3,.footer span i{
+    color: #CD8C6E;
 }
+
+footer div a:link{
+    font-size: 24px;
+}
+
+.linking:hover,.linking:link,.linking:active,.linking:visited{
+    text-decoration: none;
+    color: black;
+}
+.linking{
+    z-index: -1;
+}
+.rooms-page-item,.rooms-page-item > .row {
+    background-color: #a8a8a8;
+}
+.rooms-page-item > .row{
+    cursor: pointer;
+}
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+}
+.carousel-control-next,.carousel-control-prev{
+    cursor: pointer;
+}
+
+.shortInfo{
+    background-color: #bd5757;
+    padding: 1%;
+}
+.shortInfo span{
+    font-size: 18px;
+    color: white;
+}
+.shortInfo .default{
+    color: darkgrey;
+}
+
+.slide{
+    /*left: 15%;*/
+    width: 100%;
+    /*height: 200px;*/
+}
+
+.infoDescription{
+    /*width: 75%;*/
+    padding: 5% 15%;
+    display: flex;
+    flex-direction: column;
+    /*justify-content: end;*/
+
+}
+.services{
+    align-self: center;
+    margin-top: 5%;
+}
+
+.services hr{
+    background-color: black;
+    width: 50%;
+    height: 2px;
+    margin-top: 15%;
+    margin-bottom: 15%
+}
+.features span{
+    font-size: 24px;
+}
+.features{
+    margin-left: 5%;
+}
+.features div{
+    width: 50%;
+}
+.infoDescription p{
+    /*align-self: start;*/
+    text-align: center;
+}
+.close{
+    margin-bottom: 8px;
+    z-index: 999;
+}
+
+.carousel-indicators li{
+    width: 20px !important;
+    height: 20px !important;
+    padding: 0;
+    margin: 15px !important;
+}
+.sidebar {
+    margin: 0 auto;
+    padding: 1%;
+   background-color: grey;
+}
+article label{
+    color: white;
+}
+article input{
+    cursor: pointer;
+}
+
+.inpDate{
+    /*padding-left: 40px !important;*/
+    padding-right: 0px !important;
+}
+.calendar,.guests{
+        position: absolute;
+        top: 24px;
+        /*margin: 8px;*/
+        /*width: 2%;*/
+        /*padding: 8px;*/
+        right: 18px;
+        height: 32px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        cursor: pointer;
+}
+
+
+
 
 @media only screen  and (min-device-width: 1224px)  {
     h1{
@@ -177,3 +393,72 @@ footer div a:hover{
         margin-left: 30%;
     }
 }
+
+
+@media (min-device-width:427px) and (max-device-width:919px){
+    .sidebar{
+        flex-direction: column;
+        padding: 2%;
+    }
+    .sidebar button{
+        width: 50%;
+    }
+
+    .single-room{
+        width: 100%;
+    }
+
+    .single-room img{
+        width: 100%;
+    }
+
+}
+@media (max-device-width:426px){
+    .sidebar{
+        flex-direction: column;
+        padding: 2%;
+        margin-top: 15%;
+    }
+    .sidebar button{
+        width: 50%;
+    }
+
+    #mobile .wrapper3{
+        display: block;
+    }
+    #desktop{
+        display: none !important;
+    }
+
+    .features span{
+        font-size: 18px;
+    }
+
+    .services>div h1{
+        font-size: 20px;
+    }
+
+    .footer{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .single-room{
+        width: 100%;
+    }
+
+    .single-room img{
+        width: 100%;
+    }
+
+    footer div a:link{
+        color: white;
+        font-size: 16px;
+    }
+
+    footer div h2{
+        font-size: 18px;
+    }
+
+}
+

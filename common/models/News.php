@@ -9,9 +9,10 @@ use yii\debug\models\search\Db;
 /**
  * This is the model class for table "news".
  *
+ * @property int $id
  * @property string $name
- * @property string $image
  * @property string $description
+ * @property string $long_description
  */
 class News extends ActiveRecord
 {
@@ -29,8 +30,9 @@ class News extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'image', 'description'], 'required'],
-            [['image'], 'string'],
+            [['name', 'image', 'description','id','long_description'], 'required'],
+            [['long_description'], 'string'],
+            [['id'],'int'],
             [['name', 'description'], 'string', 'max' => 255],
         ];
     }
@@ -42,8 +44,9 @@ class News extends ActiveRecord
     {
         return [
             'name' => 'Name',
-            'image' => 'Image',
             'description' => 'Description',
+            'long_description'=> 'Long_description',
+            'id'=>'Id'
         ];
     }
 

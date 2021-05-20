@@ -19,6 +19,13 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'price')->textInput() ?>
+    <?= $form->field($model, 'guests')->textInput() ?>
+    <?= $form->field($model, 'features')->textInput() ?>
+    <?= $form->field($model, 'feature')->textInput() ?>
+    <?= $form->field($model, 'square')->textInput() ?>
+    <?= $form->field($model, 'bed')->textInput() ?>
+    <?= $form->field($model, 'long_description')->textInput() ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

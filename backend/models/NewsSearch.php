@@ -18,7 +18,7 @@ class NewsSearch extends News
     {
         return [
             [['id'], 'integer'],
-            [['name', 'image', 'description'], 'safe'],
+            [['name', 'description','long_description'], 'safe'],
         ];
     }
 
@@ -62,7 +62,7 @@ class NewsSearch extends News
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'image', $this->image])
+            ->andFilterWhere(['like', 'long_description', $this->long_description])
             ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;

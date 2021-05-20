@@ -18,7 +18,9 @@ use yii\web\IdentityInterface;
  * @property string $dateOut
  * @property string $telephone
  * @property string $room
- * @property string $payment
+ * @property string $guests
+ * @property string $nights
+ * @property string $price
  */
 class Orders extends ActiveRecord
 {
@@ -36,9 +38,10 @@ class Orders extends ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'username', 'email', 'dateIn', 'dateOut', 'telephone', 'room', 'payment'], 'required'],
+            [['id', 'username', 'email', 'dateIn', 'dateOut', 'telephone', 'room','guests','nights'], 'required'],
             [['id'], 'string', 'max' => 11],
-            [['username', 'email', 'dateIn', 'dateOut', 'telephone', 'room', 'payment','price'], 'string', 'max' => 255],
+            [['guests','nights'],'integer'],
+            [['username', 'email', 'dateIn', 'dateOut', 'telephone', 'room','price'], 'string', 'max' => 255],
             [['id'], 'unique'],
         ];
     }
@@ -56,8 +59,9 @@ class Orders extends ActiveRecord
             'dateOut' => 'Date Out',
             'telephone' => 'Telephone',
             'room' => 'Room',
-            'payment' => 'Payment',
             'price'=>'Price',
+            'guests'=>'Guests',
+            'nights'=>'Nights'
         ];
     }
 }

@@ -11,8 +11,15 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $image
  * @property string $description
- * @property string $services
+ * @property string $long_description
+ * @property string $feature
+ * @property string $bed
+ * @property string $features
+
  * @property int $price
+ * @property int $guests
+ * @property int $square
+ * @property int $amount
  */
 class Rooms extends ActiveRecord
 {
@@ -30,10 +37,10 @@ class Rooms extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'image', 'description', 'price'], 'required'],
+            [['name', 'image', 'description', 'price','features','feature','long_description','bed'], 'required'],
             [['image'], 'string'],
-            [['price'], 'integer'],
-            [['name', 'description'], 'string', 'max' => 255],
+            [['price','guests','square','amount'], 'integer'],
+            [['name', 'description','features','feature','long_description','bed'], 'string', 'max' => 255],
         ];
     }
 
@@ -47,6 +54,12 @@ class Rooms extends ActiveRecord
             'image' => 'Image',
             'description' => 'Description',
             'price' => 'Price',
+            'guests'=>'Guests',
+            'features'=>'Features',
+            'feature'=>'Feature',
+            'long_description'=>'Long_description',
+            'bed'=>'Bed',
+            'amount'=>'Amount'
         ];
     }
 }

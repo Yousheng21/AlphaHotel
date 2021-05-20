@@ -41,9 +41,30 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '' => 'site/index',
-                '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
-//                'rooms/index/<room:\w+>/<category>' => 'rooms/index',
+                [
+                    'pattern'=> '',
+                    'route'=> 'site/index',
+                    'suffix'=>''
+                ],
+                [
+                    'pattern'=> 'rooms',
+                    'route'=> 'rooms/index',
+                    'suffix'=>''
+                ],
+                [
+                    'pattern'=> '<controller>/<id:\d+>',
+                    'route'=> '<controller>',
+                    'suffix'=>''
+                ],
+                [
+                    'pattern'=> '<controller>/<action>/<id:\d+>',
+                    'route'=> '<controller>/<action>',
+                    'suffix'=>''
+                ],
+//                '' => 'site/index',
+//                '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
+
+//                'site/<year:\d{4}>/<category>' => 'site/index',
             ],
         ],
 

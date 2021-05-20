@@ -1,8 +1,15 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Orders;
+use common\models\Restaurant;
+use common\models\User;
+use frontend\assets\HomeAsset;
+use frontend\models\DeleteRoom;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\ReservationForm;
+use frontend\models\UpdateInfoEmail;
+use frontend\models\UpdateInfoUser;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
@@ -15,7 +22,6 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
-use common\models\Menu;
 use common\models\News;
 
 /**
@@ -78,9 +84,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'home';
-        $query = News::find();
+        HomeAsset::register($this->getView());
 
-        $newsList  = $query->select(['name','image','description'])
+
+        $query = News::find();
+        $newsList  = $query->select(['id','name','description'])
             ->all();
 
 //        $model = new ReservationForm();
@@ -88,11 +96,47 @@ class SiteController extends Controller
 //        if($model->load(Yii::$app->request->post()) && $model->validate()){
 //            return $this->render('reservation',['model'=>$model]);
 //        }
+
+        $user = $_COOKIE['user']??'';
+        if ($user){
+                $_SESSION['user'] = $user;
+            }
         return $this->render('index', [
             'newsList' => $newsList,
         ]);
     }
 
+    public function actionNews()
+    {
+        $this->layout = 'home';
+        HomeAsset::register($this->getView());
+
+        $query = News::find();
+
+        $oneNews  = $query->select(['id','name','description','long_description'])
+            ->all();
+
+        return $this->render('news', [
+            'oneNews' => $oneNews,
+        ]);
+
+    }
+
+    public function actionOrders(){
+        $this->layout = 'main';
+
+
+        if (Yii::$app->user->isGuest)
+            $username = $_COOKIE['user']??'';
+        else
+            $username = Yii::$app->user->identity->username;
+        $query = Orders::find();
+
+        $orders= $query->select(['room','dateIn','dateOut','guests','price'])
+            ->where(['username'=>$username])
+            ->all();
+        return $this->render('myOrders',['orders'=>$orders]);
+    }
     /**
      * Logs in a user.
      *
@@ -129,18 +173,19 @@ class SiteController extends Controller
     }
 
     public function actionGallery(){
-        $this->layout = 'gallery';
+        $this->layout = 'home';
+        HomeAsset::register($this->getView());
         return $this->render('gallery');
     }
 
     public function actionRestaurant(){
+        HomeAsset::register($this->getView());
         $this->layout = 'home';
-        $query= Menu::find();
+        $query= Restaurant::find();
 
-        $menu = $query->select(['name','description','price','image'])
+        $offers = $query->select(['id','name','description','long_description'])
             ->all();
-        return $this->render('restaurant',
-            ['menu'=>$menu,]
+        return $this->render('restaurant',['offers'=>$offers]
         );
     }
 
@@ -186,7 +231,7 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            Yii::$app->session->setFlash('success', 'Спасибо за регистрацию.');
             return $this->goHome();
         }
 
@@ -195,7 +240,50 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionAccount()
+    {
+        $cookie = $_COOKIE['user'] ?? '';
+        $model = new UpdateInfoUser();
+        $model1 = new UpdateInfoEmail();
+        $model2 = new DeleteRoom();
+        $query = User::find();
 
+        $query1 = Orders::find();
+
+        if (Yii::$app->user->isGuest)
+            if ($cookie)
+                $username = $cookie;
+            else
+                $username = $_SESSION['user'] ?? '';
+        else
+            $username = Yii::$app->user->identity->username;
+
+        $orders = $query1->select(['id', 'room', 'dateIn', 'dateOut', 'guests', 'price'])
+            ->where(['username' => $username])
+            ->all();
+
+        $userInfo = [];
+        if (!Yii::$app->user->isGuest)
+            $userInfo = $query->select(['username', 'email', 'created_at', 'updated_at'])
+                ->where(['id' => Yii::$app->user->identity->getId()])
+                ->all();
+
+        if ($model->load(Yii::$app->request->post()) && ($model->update(Yii::$app->user->identity->getId()) || $model1->update(Yii::$app->user->identity->getId()))) {
+            Yii::$app->session->setFlash('success', 'Данные успешно обновлены!');
+            return $this->goHome();
+        }
+
+        $idRoom = $_GET['id'] ?? '';
+
+        if ($idRoom) {
+            if ($model2->delete(Yii::$app->request->get('id'))) {
+                Yii::$app->session->setFlash('success', 'Бронирование отменено!');
+                return Yii::$app->response->redirect(['/site/account']);
+            }
+        }
+
+        return $this->render('account', ['userInfo' => $userInfo, 'orders' => $orders]);
+    }
 
     /**
      * Requests password reset.
@@ -290,5 +378,17 @@ class SiteController extends Controller
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);
+    }
+
+    public function actionAccomodations(){
+        return $this->render('accomodations');
+    }
+
+    public function actionPrivacy_policy(){
+        return $this->render('privacy_policy');
+    }
+
+    public function actionLoyalty(){
+        return $this->render('loyalty');
     }
 }
